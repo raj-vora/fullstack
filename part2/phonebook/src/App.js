@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import Person from './components/Person.js'
+import Person from './components/Person'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
 
 const App = () => {
     const [ persons, setPersons] = useState([
@@ -21,8 +23,8 @@ const App = () => {
 
     const addPerson = (event) => {
         event.preventDefault()
-        let copyOfNames = [...persons].map( person => person.name );
-        let exists = copyOfNames.indexOf(newName);
+        let copyOfNames = [...persons].map( person => person.name )
+        let exists = copyOfNames.indexOf(newName)
         if(exists !== -1){
             window.alert(`${newName} is already added to phonebook`)
         }
@@ -45,30 +47,26 @@ const App = () => {
 
     return (
         <div>
-            <div>
-                <h2>Phonebook</h2>
-                <div>
-                    filter shown with <input value={filter} onChange={handleFilterChange} />
-                </div>
-                <div>
-                    <h2>add a new</h2>
-                    <form onSubmit={addPerson}>
-                        <div>
-                            name: <input value={newName} onChange={handleNameChange} />
-                        </div>
-                        <div>
-                            number: <input value={newNumber} onChange={handleNumberChange} />
-                        </div>
-                        <div>
-                        <button type="submit">add</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div>
-                <h2>Numbers</h2>
-                {rows()}                
-            </div>
+            <h2>Phonebook</h2>
+            
+            <Filter 
+                filter={filter} 
+                handleFilterChange={handleFilterChange} 
+            />
+
+            <h2>add a new</h2>
+            
+            <PersonForm 
+                addPerson={addPerson} 
+                newName={newName} 
+                newNumber={newNumber} 
+                handleNameChange={handleNameChange} 
+                handleNumberChange={handleNumberChange} 
+            />
+
+            <h2>Numbers</h2>
+            
+            {rows()}                
         </div>
     )
 }
