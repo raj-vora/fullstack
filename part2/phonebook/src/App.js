@@ -16,11 +16,16 @@ const App = () => {
 
     const addPerson = (event) => {
         event.preventDefault()
-        const personObject = {
-            name: newName
+        let copyOfNames = [...persons].map( person => person.name );
+        let exists = copyOfNames.indexOf(newName);
+        if(exists !== -1){
+            window.alert(`${newName} is already added to phonebook`)
         }
-        setPersons(persons.concat(personObject))
-        setNewName('')
+        else{
+            const personObject = { name: newName }
+            setPersons(persons.concat(personObject))
+            setNewName('')
+        }   
     }
 
     const handleNameChange= (event) => {
