@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
+import List from './List'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const App = () => {
+  const [data, setData] = useState([])
+  const [ input, setInput ] = useState('')  
+
+  const hook = () => {
+    axios
+      .get('https://restcountries.eu/rest/v2/all')
+      .then(response => {
+        console.log('promise fulfilled')
+        setData(response.data)
+      })
+  }
+  useEffect(hook, [])
+
+  const countries = data.filter( function (c) {
+    return c.name.toLowerCase().indexOf(input.toLowerCase()) !== -1 
+  })
+
+  const handleInputChange = (event) => {
+    setInput(event.target.value)
+  }
+
+  return(
+    <div>
+      find countries <input value={input} onChange={handleInputChange} />
+      <List countries={countries} />
     </div>
-  );
+  )
 }
 
 export default App;
