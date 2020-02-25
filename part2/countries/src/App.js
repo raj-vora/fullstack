@@ -20,14 +20,14 @@ const App = () => {
     return c.name.toLowerCase().indexOf(input.toLowerCase()) !== -1 
   })
 
-  const handleInputChange = (event) => {
-    setInput(event.target.value)
-  }
+  const showButton = (country) => setInput(country)
+  
+  const handleInputChange = (event) => setInput(event.target.value)
 
   return(
     <div>
       find countries <input value={input} onChange={handleInputChange} />
-      <List countries={countries} />
+      <List countries={countries} showButton={showButton} />
     </div>
   )
 }

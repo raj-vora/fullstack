@@ -1,10 +1,10 @@
 import React from 'react'
 
 const Languages = ({languages}) => {
-    return languages.map( (language) => <li key = {language.name}> {language.name} </li> )
-  }
+	return languages.map( (language) => <li key = {language.name}> {language.name} </li> )
+}
 
-const List = ({countries}) => {
+const List = ({countries, showButton}) => {
 	if(countries.length > 10) {
       return(
         <div>Too many matches, specify another filter</div>
@@ -13,7 +13,16 @@ const List = ({countries}) => {
     else if(countries.length > 1){
       return(
         countries.map(
-          (country) => <div key={country.name}>{country.name}</div>
+          (country) => <div key={country.name}>
+	        {country.name}
+	        <button onClick= {
+	        	() => { 
+	        		showButton(country.name)
+	        	}
+	        }>
+	        	Show
+	        </button>
+          </div>
         )
       )
     }
