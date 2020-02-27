@@ -3,6 +3,7 @@ import Person from './components/Person'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import axios from 'axios'
+import personService from './services/persons'
 
 const App = () => {
     const [ persons, setPersons] = useState([]) 
@@ -10,22 +11,19 @@ const App = () => {
     const [ newNumber, setNewNumber ] = useState('')
     const [ filter, setFilter ] = useState('')
 
-    const hook = () => {
-        axios
-            .get('http://localhost:3001/persons')
-            .then(response => {
-                console.log('promise fulfilled')
-                setPersons(response.data)
-            })
-    }
-
-    useEffect(hook, [])
+    useEffect(() => {
+        personService
+        .getAll()
+        .then(initialPersons => {
+            setPersons(initialPersons)
+        })
+    }, [])
 
     const rows = () => persons.filter( 
         person => person.name.toLowerCase().indexOf(filter.toLowerCase()) !== -1 
     )
     .map(
-        person => <Person key={person.name} person={person} /> 
+        person => <Person key={person.name} person={person} deletePerson={() => deletePerson(person)} /> 
     )
 
     const addPerson = (event) => {
@@ -40,10 +38,29 @@ const App = () => {
                 name: newName,
                 number: newNumber 
             }
-            setPersons(persons.concat(personObject))
-            setNewName('')
-            setNewNumber('')
+            personService
+                .create(personObject)
+                .then(returnedPerson => {
+                    setPersons(persons.concat(returnedPerson))
+                    setNewName('')
+                    setNewNumber('')
+                })
         }   
+    }
+
+    const deletePerson = (person) => {
+        var result = window.confirm(`Are you sure you want to delete ${person.name}`)
+        if(result){
+            personService
+                .remove(person.id)
+                .then( setPersons(persons.filter(p => p.id !== person.id)) )
+                .catch(error => 
+                    window.alert(`${person.name} was already deleted`)
+                )
+        }
+        else {
+            console.log('Do nothing');
+        }
     }
 
     const handleNameChange = (event) => setNewName(event.target.value)
@@ -72,7 +89,6 @@ const App = () => {
             />
 
             <h2>Numbers</h2>
-            
             {rows()}                
         </div>
     )
