@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import Person from './components/Person'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
-import axios from 'axios'
 import personService from './services/persons'
 
 const App = () => {
@@ -29,9 +28,17 @@ const App = () => {
     const addPerson = (event) => {
         event.preventDefault()
         let copyOfNames = [...persons].map( person => person.name )
-        let exists = copyOfNames.indexOf(newName)
-        if(exists !== -1){
-            window.alert(`${newName} is already added to phonebook`)
+        let index = copyOfNames.indexOf(newName)
+        if(index !== -1){
+            var result = window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
+            if(result) {
+                let person = persons.find(p=> p.name === copyOfNames[index])
+                personService
+                    .update(person.id, {...person, number:newNumber})
+                    .then(returnedPerson => {
+                        setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
+                    })
+            }
         }
         else{
             const personObject = { 
@@ -42,14 +49,14 @@ const App = () => {
                 .create(personObject)
                 .then(returnedPerson => {
                     setPersons(persons.concat(returnedPerson))
-                    setNewName('')
-                    setNewNumber('')
                 })
-        }   
+        }
+        setNewName('')
+        setNewNumber('')   
     }
 
     const deletePerson = (person) => {
-        var result = window.confirm(`Are you sure you want to delete ${person.name}`)
+        var result = window.confirm(`Are you sure you want to delete ${person.name}?`)
         if(result){
             personService
                 .remove(person.id)
