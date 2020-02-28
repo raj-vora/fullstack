@@ -9,6 +9,7 @@ const App = () => {
     const [ newName, setNewName ] = useState('')
     const [ newNumber, setNewNumber ] = useState('')
     const [ filter, setFilter ] = useState('')
+    const [errorMessage, setErrorMessage] = useState(null)
 
     useEffect(() => {
         personService
@@ -38,6 +39,10 @@ const App = () => {
                     .then(returnedPerson => {
                         setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
                     })
+                setErrorMessage(`Updated ${newName}`)
+                setTimeout(() => {
+                  setErrorMessage(null)
+                }, 3000)
             }
         }
         else{
@@ -50,6 +55,10 @@ const App = () => {
                 .then(returnedPerson => {
                     setPersons(persons.concat(returnedPerson))
                 })
+            setErrorMessage(`Added ${newName}`)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 3000)
         }
         setNewName('')
         setNewNumber('')   
@@ -60,26 +69,37 @@ const App = () => {
         if(result){
             personService
                 .remove(person.id)
-                .then( setPersons(persons.filter(p => p.id !== person.id)) )
+                .then( () =>{ 
+                    setPersons(persons.filter(p => p.id !== person.id)) 
+                    setErrorMessage(`Deleted ${person.name}`)
+                    setTimeout(() => {
+                      setErrorMessage(null)
+                    }, 3000)
+                })
                 .catch(error => 
                     window.alert(`${person.name} was already deleted`)
                 )
         }
-        else {
-            console.log('Do nothing');
-        }
     }
 
-    const handleNameChange = (event) => setNewName(event.target.value)
+    const Notification = ({ message }) => {
+    if (message === null) {
+      return null
+    }
 
-    const handleNumberChange = (event) => setNewNumber(event.target.value)
+    return <div className='error'> { message } </div>
+  }
 
-    const handleFilterChange = (event) => setFilter(event.target.value)
+    const handleNameChange = event => setNewName(event.target.value)
+
+    const handleNumberChange = event => setNewNumber(event.target.value)
+
+    const handleFilterChange = event => setFilter(event.target.value)
 
     return (
         <div>
             <h2>Phonebook</h2>
-            
+            <Notification message={errorMessage} />
             <Filter 
                 filter={filter} 
                 handleFilterChange={handleFilterChange} 
