@@ -38,11 +38,17 @@ const App = () => {
                     .update(person.id, {...person, number:newNumber})
                     .then(returnedPerson => {
                         setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
+                        setErrorMessage(`Updated ${newName}`)
+                        setTimeout(() => {
+                          setErrorMessage(null)
+                        }, 3000)
                     })
-                setErrorMessage(`Updated ${newName}`)
-                setTimeout(() => {
-                  setErrorMessage(null)
-                }, 3000)
+                    .catch(error => {
+                        setErrorMessage(`Information of ${newName} has already been removed from server`)
+                        setTimeout(() => {
+                          setErrorMessage(null)
+                        }, 3000)        
+                    })
             }
         }
         else{
