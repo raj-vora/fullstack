@@ -1,7 +1,7 @@
-POST http://localhost:3001/api/persons
+POST https://lit-anchorage-94186.herokuapp.com/api/persons
 Content-Type: application/json
 
 {
     "name": "Raj Vora",
-    "number": ""
+    "number": "8850245287"
 }
