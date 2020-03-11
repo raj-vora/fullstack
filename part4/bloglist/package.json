@@ -1,0 +1,35 @@
+{
+    "name": "bloglist",
+    "version": "0.0.1",
+    "description": "Full stack part 4 - Blog List",
+    "main": "index.js",
+    "directories": {
+        "example": "example"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js",
+        "watch": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/raj-vora/bloglist.git"
+    },
+    "author": "Raj Vora",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/raj-vora/bloglist/issues"
+    },
+    "homepage": "https://github.com/raj-vora/bloglist#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "mongoose": "^5.9.4"
+            /*"dotenv": "^8.2.0",
+            "mongoose-unique-validator": "^2.0.3",
+            "morgan": "^1.9.1"*/
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.2"
+    }
+}
