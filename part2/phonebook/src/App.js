@@ -44,14 +44,14 @@ const App = () => {
                         }, 3000)
                     })
                     .catch(error => {
-                        setErrorMessage(`Information of ${newName} has already been removed from server`)
+                        setErrorMessage(error.message)
                         setTimeout(() => {
                           setErrorMessage(null)
                         }, 3000)        
                     })
             }
         }
-        else{
+        else if(newName.length >= 1){
             const personObject = { 
                 name: newName,
                 number: newNumber 
@@ -60,17 +60,28 @@ const App = () => {
                 .create(personObject)
                 .then(returnedPerson => {
                     setPersons(persons.concat(returnedPerson))
+                    setErrorMessage(`Added ${newName}`)
+                    setTimeout(() => {
+                      setErrorMessage(null)
+                    }, 3000)
+                    setNewName('')
+                    setNewNumber('')
                 })
-            setErrorMessage(`Added ${newName}`)
-            setTimeout(() => {
-              setErrorMessage(null)
-            }, 3000)
+                .catch(error => {
+                    setErrorMessage(error.response.data.error)
+                    setTimeout(() => {
+                      setErrorMessage(null)
+                    }, 3000)        
+                })
         }
-        setNewName('')
-        setNewNumber('')   
+        else{
+            setNewName('')
+            setNewNumber('')
+            setPersons(persons)
+        }   
     }
 
-    const deletePerson = (person) => {
+    const deletePerson = person => {
         var result = window.confirm(`Are you sure you want to delete ${person.name}?`)
         if(result){
             personService
