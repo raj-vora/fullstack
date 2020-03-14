@@ -82,3 +82,64 @@ describe('totalLikes', () => {
         expect(result).toBe(36)
     })
 })
+
+describe('favouriteBlog', () => {
+    test('of empty list is zero', () => {
+        const blogs = []
+
+        const result = listHelper.favouriteBlog(blogs)
+        expect(result).toEqual({})
+    })
+
+    test('sum of likes of one blog', () => {
+        const blogs = [{
+            "title": "First Blog",
+            "author": "Raj Vora",
+            "likes": 4
+        }]
+
+        const result = listHelper.totalLikes(blogs)
+        expect(result).toBe(4)
+    })
+
+    test('sum of blogs', () => {
+        const blogs = [{
+                title: "React patterns",
+                author: "Michael Chan",
+                likes: 7,
+            },
+            {
+                title: "Go To Statement Considered Harmful",
+                author: "Edsger W. Dijkstra",
+                likes: 5,
+            },
+            {
+                title: "Canonical string reduction",
+                author: "Edsger W. Dijkstra",
+                likes: 12,
+            },
+            {
+                title: "First class tests",
+                author: "Robert C. Martin",
+                likes: 10,
+            },
+            {
+                title: "TDD harms architecture",
+                author: "Robert C. Martin",
+                likes: 0,
+            },
+            {
+                title: "Type wars",
+                author: "Robert C. Martin",
+                likes: 2,
+            }
+        ]
+
+        const result = listHelper.favouriteBlog(blogs)
+        expect(result).toEqual({
+            title: "Canonical string reduction",
+            author: "Edsger W. Dijkstra",
+            likes: 12,
+        })
+    })
+})
