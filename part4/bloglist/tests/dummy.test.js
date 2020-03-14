@@ -8,6 +8,13 @@ test('dummy returns one', () => {
 })
 
 describe('totalLikes', () => {
+    test('of empty list is zero', () => {
+        const blogs = []
+
+        const result = listHelper.totalLikes(blogs)
+        expect(result).toBe(0)
+    })
+
     test('sum of likes of one blog', () => {
         const blogs = [{
             "title": "First Blog",
@@ -18,25 +25,6 @@ describe('totalLikes', () => {
 
         const result = listHelper.totalLikes(blogs)
         expect(result).toBe(4)
-    })
-
-    test('sum of likes of two blogs', () => {
-        const blogs = [{
-                "title": "First Blog",
-                "author": "Raj Vora",
-                "url": "http://rajvora.co",
-                "likes": 4
-            },
-            {
-                "title": "First Blog",
-                "author": "Raj Vora",
-                "url": "http://rajvora.co",
-                "likes": 5
-            }
-        ]
-
-        const result = listHelper.totalLikes(blogs)
-        expect(result).toBe(9)
     })
 
     test('sum of blogs', () => {
