@@ -2,6 +2,15 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
+const extract = body => {
+    const result = {
+        title: body.title,
+        author: body.author,
+        url: body.url,
+        likes: body.likes
+    }
+    return result
+}
 
 test('blogs are returned as JSON', async() => {
     const response = await api
@@ -16,31 +25,43 @@ test('id is unique identifier', async() => {
     expect(response.body[0]._id).toBeDefined()
 })
 
-test.only('a valid blog can be added', async() => {
+test('a valid blog can be added', async() => {
     const newBlog = {
-        title: "Canonical string reduction",
-        author: "Edsger W. Dijkstra",
-        url: "http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html",
-        likes: 12
+        title: "First class tests",
+        author: "Robert C. Martin",
+        url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
+        likes: 10,
     }
-
     await api
         .post('/api/blogs')
         .send(newBlog)
-        .expect(201)
-        .expect('Content-Type', /application\/json/)
 
     const response = await api.get('/api/blogs')
-    const titles = response.body.map(b => b.title)
-    const authors = response.body.map(b => b.author)
-    const urls = response.body.map(b => b.url)
-    const likes = response.body.map(b => b.likes)
-
+    const result = extract(response.body[response.body.length - 1])
     expect(response.body.length).toBe(4)
-    expect(titles).toContain('Canonical string reduction')
-    expect(authors).toContain('Edsger W. Dijkstra')
-    expect(urls).toContain('http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html')
-    expect(likes).toContain(12)
+    expect(result).toEqual(newBlog)
+})
+
+test.only('if likes is empty, make it zero', async() => {
+    const newBlog = {
+        title: "First class tests",
+        author: "Robert C. Martin",
+        url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
+    }
+
+    const tempBlog = {
+        title: "First class tests",
+        author: "Robert C. Martin",
+        url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
+        likes: 0,
+    }
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+
+    const response = await api.get('/api/blogs')
+    const result = extract(response.body[response.body.length - 1])
+    expect(result).toEqual(tempBlog)
 })
 
 afterAll(() => {
