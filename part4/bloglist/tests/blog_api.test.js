@@ -42,7 +42,7 @@ test('a valid blog can be added', async() => {
     expect(result).toEqual(newBlog)
 })
 
-test.only('if likes is empty, make it zero', async() => {
+test('if likes is empty, make it zero', async() => {
     const newBlog = {
         title: "First class tests",
         author: "Robert C. Martin",
@@ -62,6 +62,17 @@ test.only('if likes is empty, make it zero', async() => {
     const response = await api.get('/api/blogs')
     const result = extract(response.body[response.body.length - 1])
     expect(result).toEqual(tempBlog)
+})
+
+test.only('if title and url is empty', async() => {
+    const newBlog = {
+        author: "Robert C. Martin",
+        likes: 10,
+    }
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(400)
 })
 
 afterAll(() => {

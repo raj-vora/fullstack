@@ -9,6 +9,9 @@ blogsRouter.get('/', async(request, response) => {
 blogsRouter.post('/', async(request, response, next) => {
     const body = request.body
 
+    if (body.title === undefined && body.url === undefined) {
+        response.status(400)
+    }
     const blog = new Blog({
         title: body.title,
         author: body.author,
