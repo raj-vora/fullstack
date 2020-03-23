@@ -21,7 +21,7 @@ blogsRouter.post('/', async(request, response) => {
     const user = await User.findById(decodedToken.id)
 
     if (body.title === undefined && body.url === undefined) {
-        response.status(400).json({ 'error': 'title or url missing' })
+        response.status(400).json({ error: 'title or url missing' })
     }
     const blog = new Blog({
         title: body.title,
@@ -47,7 +47,7 @@ blogsRouter.delete('/:id', async(request, response) => {
         await Blog.findByIdAndDelete(request.params.id)
         response.status(204).end()
     } else {
-        return response.status(400).json({ error: 'invalid delete operation' })
+        return response.status(403).json({ error: 'invalid delete operation' })
     }
 })
 
