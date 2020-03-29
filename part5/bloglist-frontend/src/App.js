@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Blog from './components/Blog'
+import Blogs from './components/Blogs'
 import loginForm from './components/loginForm'
-import notification from './components/notification'
 import blogService from './services/blogs'
 import loginService from './services/login' 
 
@@ -50,13 +49,23 @@ const App = () => {
     }
   }
 
+  const notification = (message) => (
+    <div>
+      {
+        message === null
+        ? null
+        : <div className='error'> { message } </div>
+      }
+    </div>
+  )
+
   return (
     <div>
     {notification(errorMessage)}
       {
         user === null
         ? loginForm(handleLogin, username, password, setUsername, setPassword)
-        : <Blog blogs={blogs} setBlogs={setBlogs} user={user} setErrorMessage={setErrorMessage} />
+        : <Blogs blogs={blogs} setBlogs={setBlogs} user={user} setErrorMessage={setErrorMessage} />
       }
     </div>
   )
