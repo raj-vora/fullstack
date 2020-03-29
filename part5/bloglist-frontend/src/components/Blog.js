@@ -16,7 +16,6 @@ const Blog = ({blog, deleteBlog}) => {
 
     const toggleView = () => {
         setVisible(!visible)
-        console.log(blog)
     }
 
     const likeBlog = async() => {

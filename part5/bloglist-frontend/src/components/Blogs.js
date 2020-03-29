@@ -64,7 +64,9 @@ const Blogs = ({ blogs, setBlogs, user, setErrorMessage }) => {
         <Blog 
           blog={blog} 
           key={blog.id} 
-          deleteBlog={() => deleteBlog(blog)} /> )}
+          deleteBlog={() => deleteBlog(blog)} 
+        /> 
+      )}
     </div>
   )
 }
