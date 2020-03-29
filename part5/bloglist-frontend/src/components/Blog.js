@@ -25,10 +25,10 @@ const Blog = ({blog, deleteBlog}) => {
     
     const buttonLabel = visible ? 'hide' : 'view'
     return(
-        <div style={blogStyle}>
+        <div style={blogStyle} className='blog'>
             {newBlog.title} {newBlog.author}
             <button onClick={toggleView}>{buttonLabel}</button> 
-            <div style={enlarge}>
+            <div style={enlarge} className="hidden">
                 {newBlog.url}<br />
                 likes {newBlog.likes} 
                 <button onClick={likeBlog}>like</button><br />
