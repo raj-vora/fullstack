@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import blogForm from './blogForm'
 import Togglable from './Togglable'
-import blogService from '../services/blogs'
+import blogService from '../services/blogService'
 import Blog from './Blog'
 
 const Blogs = ({ blogs, setBlogs, user, setErrorMessage }) => {
@@ -38,6 +38,18 @@ const Blogs = ({ blogs, setBlogs, user, setErrorMessage }) => {
     }
   }
 
+  const deleteBlog = async(blog) => {
+    const result = window.confirm(`Remove ${blog.title} by ${blog.author}`)
+      if(result) {
+        await blogService.remove(blog.id)
+        setBlogs(blogs.filter(b => b.id !== blog.id))
+        setErrorMessage(`Deleted blog ${blog.title}`)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 3000)
+      }
+  }
+
   return(
     <div>
       <form id="logout"></form>
@@ -48,7 +60,11 @@ const Blogs = ({ blogs, setBlogs, user, setErrorMessage }) => {
           {blogForm(addBlog, title, author, url, setTitle, setAuthor, setUrl)}
         </Togglable>
       </div>
-      {blogs.map(blog => <Blog blog={blog} key={blog.id} user={user} /> )}
+      {blogs.map(blog => 
+        <Blog 
+          blog={blog} 
+          key={blog.id} 
+          deleteBlog={() => deleteBlog(blog)} /> )}
     </div>
   )
 }

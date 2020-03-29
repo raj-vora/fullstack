@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import blogService from '../services/blogs'
+import blogService from '../services/blogService'
 
-const Blog = ({blog, user}) => {
+const Blog = ({blog, deleteBlog}) => {
     const [visible, setVisible] = useState(false)
     const [newBlog, setNewBlog] = useState(blog)
 
@@ -16,6 +16,7 @@ const Blog = ({blog, user}) => {
 
     const toggleView = () => {
         setVisible(!visible)
+        console.log(blog)
     }
 
     const likeBlog = async() => {
@@ -32,7 +33,8 @@ const Blog = ({blog, user}) => {
                 {newBlog.url}<br />
                 likes {newBlog.likes} 
                 <button onClick={likeBlog}>like</button><br />
-                {blog.user.name}
+                {blog.user.name}<br />
+                <button onClick={deleteBlog}>remove</button>
             </div>
         </div>
     )
