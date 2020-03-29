@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
-import form from './components/Form'
+import loginForm from './components/loginForm'
+import notification from './components/notification'
 import blogService from './services/blogs'
 import loginService from './services/login' 
 
@@ -24,16 +25,6 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
-
-  const Notification = (message) => (
-    <div>
-      {
-        message === null
-        ? null
-        : <div className='error'> { message } </div>
-      }
-    </div>
-  )
 
   const handleLogin = async(event) => {
     event.preventDefault()
@@ -61,10 +52,10 @@ const App = () => {
 
   return (
     <div>
-    {Notification(errorMessage)}
+    {notification(errorMessage)}
       {
         user === null
-        ? form.loginForm(handleLogin, username, password, setUsername, setPassword)
+        ? loginForm(handleLogin, username, password, setUsername, setPassword)
         : <Blog blogs={blogs} setBlogs={setBlogs} user={user} setErrorMessage={setErrorMessage} />
       }
     </div>
