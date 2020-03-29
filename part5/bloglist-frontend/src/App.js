@@ -14,7 +14,7 @@ const App = () => {
   useEffect(() => {
     async function temp() {
       const blogs = await blogService.getAll()
-      setBlogs(blogs)
+      setBlogs(blogs.sort((a, b) => (a.likes < b.likes ? 1 : -1)))
     }
     temp()
     const loggedUserJSON = window.localStorage.getItem('loggedInUser')
