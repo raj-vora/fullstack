@@ -1,28 +1,39 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import Blog from './Blog'
 
-test('renders content', () => {
-    const blog = {
-        title: "Portfolio",
-        author: "Raj Vora",
-        url: "http://rajvora.co",
-        likes: 4,
-        user: {
-            name: 'Raj Vora'
-        }
+const blog = {
+    title: "Portfolio",
+    author: "Raj Vora",
+    url: "http://rajvora.co",
+    likes: 4,
+    user: {
+        name: 'Raj Vora'
     }
+}
+
+test('renders content', () => {
 
     const component = render(
         <Blog blog={blog} />
     )
     
-    component.debug()
     const blogView = component.container.querySelector('.blog')
     expect(blogView).toHaveTextContent('Portfolio')
     expect(blogView).toHaveTextContent('Raj Vora')
     const hidden = component.container.querySelector('.hidden')
     expect(hidden).toHaveStyle('display: none')
-    
+})
+
+test('clicking button shows details', () => {
+    const component = render(
+        <Blog blog={blog} />
+    )
+
+    const button = component.getByText('view')
+    fireEvent.click(button)
+    const expanded = component.container.querySelector('.hidden')
+    expect(expanded).toHaveTextContent('4')
+    expect(expanded).toHaveTextContent('http://rajvora.co')
 })
