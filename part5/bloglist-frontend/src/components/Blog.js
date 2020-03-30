@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import blogService from '../services/blogService'
 
-const Blog = ({blog, deleteBlog}) => {
+const Blog = ({blog, deleteBlog, likeBlog}) => {
     const [visible, setVisible] = useState(false)
     const [newBlog, setNewBlog] = useState(blog)
 
@@ -16,11 +16,6 @@ const Blog = ({blog, deleteBlog}) => {
 
     const toggleView = () => {
         setVisible(!visible)
-    }
-
-    const likeBlog = async() => {
-        const response = await blogService.update(newBlog.id, {...newBlog, likes: newBlog.likes+1})
-        setNewBlog(response)
     }
     
     const buttonLabel = visible ? 'hide' : 'view'

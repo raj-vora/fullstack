@@ -37,3 +37,15 @@ test('clicking button shows details', () => {
     expect(expanded).toHaveTextContent('4')
     expect(expanded).toHaveTextContent('http://rajvora.co')
 })
+
+test('clicking like twice', () => {
+    const mockHandler = jest.fn()
+    const component = render(
+        <Blog blog={blog} likeBlog={mockHandler} />
+    )
+
+    const button = component.getByText('like')
+    fireEvent.click(button)
+    fireEvent.click(button)
+    expect(mockHandler.mock.calls.length).toBe(2)
+})

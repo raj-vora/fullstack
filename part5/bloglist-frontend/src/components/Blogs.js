@@ -38,6 +38,11 @@ const Blogs = ({ blogs, setBlogs, user, setErrorMessage }) => {
     }
   }
 
+  const likeBlog = async(blog) => {
+    const returnedBlog = await blogService.update(blog.id, {...blog, likes: blog.likes+1})
+    setBlogs(blogs.map(b => b.id !== blog.id ? b : returnedBlog))
+  }
+
   const deleteBlog = async(blog) => {
     const result = window.confirm(`Remove ${blog.title} by ${blog.author}`)
       if(result) {
@@ -64,7 +69,8 @@ const Blogs = ({ blogs, setBlogs, user, setErrorMessage }) => {
         <Blog 
           blog={blog} 
           key={blog.id} 
-          deleteBlog={() => deleteBlog(blog)} 
+          deleteBlog={() => deleteBlog(blog)}
+          likeBlog={() => likeBlog(blog)}
         /> 
       )}
     </div>
