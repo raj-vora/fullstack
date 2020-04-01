@@ -1,20 +1,53 @@
-import React from 'react'
-import textInput from './TextInput'
+import React, {useState} from 'react'
 
-const blogForm = ( addBlog, title, author, url, setTitle, setAuthor, setUrl ) => (
-  <div>
-      <h2>Create new blog</h2>
-      <form onSubmit={addBlog}>
-          {textInput('Title:', 'text', title, setTitle)}
+const BlogForm = ({ createBlog }) =>{ 
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
+  
+  const addBlog = (event) => {
+    event.preventDefault()
+    createBlog({
+      title: title,
+      author: author,
+      url: url
+    })
+
+    setTitle('')
+    setAuthor('')
+    setUrl('')
+  }
+
+  return(
+    <div>
+        <h2>Create new blog</h2>
+        <form onSubmit={addBlog}>
+          Title:
+          <input  
+            value={title}
+            name="title"
+            onChange={({target}) => setTitle(target.value)}
+          />
+          <br />
+          Author:
+          <input 
+            value={author}
+            name="author"
+            onChange={({target}) => setAuthor(target.value)}
+          />
           <br/>
-          {textInput('Author:', 'text', author, setAuthor)}
-          <br/>
-          {textInput('Url:', 'text', url, setUrl)}
+          Url:
+          <input 
+            value={url}
+            name="url"
+            onChange={({target}) => setUrl(target.value)}
+          />
           <br/>
           <button type='submit'>Create</button>
-      </form>
-      <br />
-  </div>
-)
+        </form>
+        <br />
+    </div>
+  )
+}
 
-export default blogForm
+export default BlogForm

@@ -40,6 +40,7 @@ test('clicking button shows details', () => {
 
 test('clicking like twice', () => {
     const mockHandler = jest.fn()
+    
     const component = render(
         <Blog blog={blog} likeBlog={mockHandler} />
     )

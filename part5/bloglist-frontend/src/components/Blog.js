@@ -1,9 +1,7 @@
 import React, {useState} from 'react'
-import blogService from '../services/blogService'
 
 const Blog = ({blog, deleteBlog, likeBlog}) => {
     const [visible, setVisible] = useState(false)
-    const [newBlog, setNewBlog] = useState(blog)
 
     const blogStyle = {
         paddingTop: 10,
@@ -21,11 +19,11 @@ const Blog = ({blog, deleteBlog, likeBlog}) => {
     const buttonLabel = visible ? 'hide' : 'view'
     return(
         <div style={blogStyle} className='blog'>
-            {newBlog.title} {newBlog.author}
+            {blog.title} {blog.author}
             <button onClick={toggleView}>{buttonLabel}</button> 
             <div style={enlarge} className="hidden">
-                {newBlog.url}<br />
-                likes {newBlog.likes} 
+                {blog.url}<br />
+                likes {blog.likes} 
                 <button onClick={likeBlog}>like</button><br />
                 {blog.user.name}<br />
                 <button onClick={deleteBlog}>remove</button>
