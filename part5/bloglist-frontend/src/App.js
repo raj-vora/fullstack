@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Blogs from './components/Blogs'
 import loginForm from './components/loginForm'
 import blogService from './services/blogService'
-import loginService from './services/loginService' 
+import loginService from './services/loginService'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -36,7 +36,7 @@ const App = () => {
       window.localStorage.setItem(
         'loggedInUser', JSON.stringify(user)
       )
-      
+
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
@@ -53,19 +53,19 @@ const App = () => {
     <div>
       {
         message === null
-        ? null
-        : <div className='error' id="notif"> { message } </div>
+          ? null
+          : <div className='error' id="notif"> { message } </div>
       }
     </div>
   )
 
   return (
     <div>
-    {notification(errorMessage)}
+      {notification(errorMessage)}
       {
         user === null
-        ? loginForm(handleLogin, username, password, setUsername, setPassword)
-        : <Blogs blogs={blogs} setBlogs={setBlogs} user={user} setErrorMessage={setErrorMessage} />
+          ? loginForm(handleLogin, username, password, setUsername, setPassword)
+          : <Blogs blogs={blogs} setBlogs={setBlogs} user={user} setErrorMessage={setErrorMessage} />
       }
     </div>
   )
