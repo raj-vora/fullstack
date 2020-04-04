@@ -55,6 +55,17 @@ describe('Blog', function() {
       cy.contains('view').click()
       cy.contains('like').click()
     })
+
+    it('user can like a blog', function() {
+        cy.contains('Create New Blog').click()
+        cy.get('#title').type('Portfolio')
+        cy.get('#author').type('John Doe')
+        cy.get('#url').type('www.portfolio.com')
+        cy.get('#create-btn').click()
+        cy.contains('view').click()
+        cy.contains('remove').click()
+        cy.contains('Deleted blog Portfolio')
+      })
   })
 
 })
