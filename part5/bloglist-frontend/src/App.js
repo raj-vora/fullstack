@@ -54,7 +54,7 @@ const App = () => {
       {
         message === null
         ? null
-        : <div className='error'> { message } </div>
+        : <div className='error' id="notif"> { message } </div>
       }
     </div>
   )
