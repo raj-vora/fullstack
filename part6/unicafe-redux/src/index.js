@@ -6,19 +6,21 @@ import reducer from './reducer'
 const store = createStore(reducer)
 
 const App = () => {
-  const good = () => {
+
+  let good=store.getState().good, ok=store.getState().ok, bad=store.getState().bad
+  const setGood = () => {
     store.dispatch({
       type: 'GOOD'
     })
   }
 
-  const neutral = () => {
+  const setNeutral = () => {
     store.dispatch({
       type: 'OK'
     })
   }
 
-  const bad = () => {
+  const setBad = () => {
     store.dispatch({
       type: 'BAD'
     })
@@ -30,15 +32,27 @@ const App = () => {
     })
   }
 
+  const all = good+ok+bad
+  const average = (good+bad*-1)/all
+  const positive = good/all*100
+
   return (
     <div>
-      <button onClick={good}>good</button> 
-      <button onClick={neutral}>neutral</button> 
-      <button onClick={bad}>bad</button>
+      <button onClick={setGood}>good</button> 
+      <button onClick={setNeutral}>neutral</button> 
+      <button onClick={setBad}>bad</button>
       <button onClick={reset}>reset stats</button>
-      <div>good {store.getState().good}</div>
-      <div>neutral {store.getState().ok}</div>
-      <div>bad {store.getState().bad}</div>
+      {all===0
+        ? <div><h4>No feedback given</h4></div>
+        : <div>
+          <div>good {store.getState().good}</div>
+          <div>neutral {store.getState().ok}</div>
+          <div>bad {store.getState().bad}</div>
+          <div>all {all}</div>
+          <div>average {average}</div>
+          <div>positive {positive}</div>
+          </div>
+      }
     </div>
   )
 }
