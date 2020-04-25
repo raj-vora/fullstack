@@ -9,23 +9,34 @@ const reducer = (state = [], action) => {
         ...anecToChange, votes: anecToChange.votes+1
       }
       return state.map(anec => anec.id !== id ? anec : changedAnec)
+    case 'INIT_ANEC':
+      return action.data
     default:
       return state.sort((a, b) => (a.votes < b.votes ? 1 : -1))
   }
 }
 
-export const addAnecdote = (content) => {
+export const initializeAnecdotes = anecdotes  => {
+  return {
+    type: 'INIT_ANEC',
+    data: anecdotes
+  }
+}
+
+export const addAnecdote = content => {
   return {
     type: 'NEW_ANEC',
     data: content 
   }
 }
 
-export const newVote = (id) => {
+export const newVote = id => {
   return {
     type: 'VOTE',
     data: { id }
   }
 }
+
+
 
 export default reducer
