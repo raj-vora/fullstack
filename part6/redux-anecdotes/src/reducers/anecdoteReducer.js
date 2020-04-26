@@ -5,14 +5,9 @@ const reducer = (state = [], action) => {
     case 'NEW_ANEC':
       return state.concat(action.data)
     case 'VOTE':
-      const id = action.data.id
-      const anecToChange = state.find(a => a.id===id)
-      const changedAnec = {
-        ...anecToChange, votes: anecToChange.votes+1
-      }
-      return state.map(anec => anec.id !== id ? anec : changedAnec)
+      return state.map(anec => anec.id !== action.data.id ? anec : action.data)
     case 'INIT_ANEC':
-      return action.data
+      return action.data.sort((a, b) => (a.votes < b.votes ? 1 : -1))
     default:
       return state.sort((a, b) => (a.votes < b.votes ? 1 : -1))
   }
@@ -38,10 +33,14 @@ export const newAnecdote = content => {
   }
 }
 
-export const newVote = id => {
-  return {
-    type: 'VOTE',
-    data: { id }
+export const newVote = anecdote => {
+  return async dispatch => {
+    const updatedAnecdote = await anecdotesService.update(anecdote.id, {...anecdote, votes: anecdote.votes+1})
+    dispatch({
+      type: 'VOTE',
+      data:  updatedAnecdote
+    })
+    
   }
 }
 
