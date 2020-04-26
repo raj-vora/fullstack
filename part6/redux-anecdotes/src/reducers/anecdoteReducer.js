@@ -28,10 +28,13 @@ export const initializeAnecdotes = () => {
   }
 }
 
-export const addAnecdote = content => {
-  return {
-    type: 'NEW_ANEC',
-    data: content 
+export const newAnecdote = content => {
+  return async dispatch => {
+    const newAnecdote = await anecdotesService.createNew(content)
+    dispatch({
+      type: 'NEW_ANEC',
+      data: newAnecdote
+    })
   }
 }
 
