@@ -14,10 +14,8 @@ const AnecdoteList = () => {
 
     const vote = (anecdote) => {
         dispatch(newVote(anecdote))
-        dispatch(setNotif(`you voted '${anecdote.content}'`))
-        setTimeout(() => {
-            dispatch(removeNotif('remove'))
-        }, 5000)    
+        dispatch(setNotif(`you voted '${anecdote.content}'`,2))
+            
     }
     return(
         <div>
