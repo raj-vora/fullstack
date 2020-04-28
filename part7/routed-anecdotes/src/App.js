@@ -7,6 +7,7 @@ import {
   useParams,
   useRouteMatch 
 } from 'react-router-dom'
+import { useField } from './hooks'
 
 const Menu = () => {
   const padding = {
@@ -64,16 +65,19 @@ const Footer = () => (
   </div>
 )
 
-const CreateNew = (props) => {
+const CreateNew = ({addNew}) => {
   const history = useHistory()
-  const [content, setContent] = useState('')
-  const [author, setAuthor] = useState('')
-  const [info, setInfo] = useState('')
-
+  const contentHook = useField('text')
+  const authorHook = useField('text')
+  const infoHook = useField('text')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.addNew({
+    const content = contentHook.value
+    const author = authorHook.value
+    const info = infoHook.value
+
+    addNew({
       content,
       author,
       info,
@@ -88,15 +92,15 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input name='content' value={content} onChange={(e) => setContent(e.target.value)} />
+          <input {...contentHook}/>
         </div>
         <div>
           author
-          <input name='author' value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input {...authorHook} />
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input {...infoHook} />
         </div>
         <button>create</button>
       </form>
