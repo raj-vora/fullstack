@@ -71,8 +71,8 @@ const CreateNew = ({addNew}) => {
   const authorHook = useField('text')
   const infoHook = useField('text')
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault()
     const content = contentHook.value
     const author = authorHook.value
     const info = infoHook.value
@@ -89,10 +89,10 @@ const CreateNew = ({addNew}) => {
   return (
     <div>
       <h2>create a new anecdote</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
         <div>
           content
-          <input {...contentHook}/>
+          <input {...contentHook} />
         </div>
         <div>
           author
@@ -102,7 +102,7 @@ const CreateNew = ({addNew}) => {
           url for more info
           <input {...infoHook} />
         </div>
-        <button>create</button>
+        <button>Create</button>
       </form>
     </div>
   )
