@@ -4,10 +4,10 @@ import BlogForm from './BlogForm'
 import Togglable from './Togglable'
 import Blog from './Blog'
 
-const Blogs = ({ user }) => {
+const Blogs = () => {
   const blogFormRef = React.createRef()
   const blogs = useSelector(state => state.blog)
-  
+  const user = useSelector(state => state.user)
   return(
     <div>
       <form id="logout"></form>
@@ -17,7 +17,6 @@ const Blogs = ({ user }) => {
           {user.name} logged in
           <button type="submit" onClick={() => window.localStorage.removeItem('loggedInUser')} form="logout">Logout</button>
         </div>
-        <br />
         <Togglable buttonLabel='Create New Blog' ref={blogFormRef}>
           <BlogForm />
         </Togglable>

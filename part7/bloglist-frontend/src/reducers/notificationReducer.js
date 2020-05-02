@@ -16,15 +16,11 @@ export const setNotif = (notification,time) => {
             notification
         })
         setTimeout(() => {
-            dispatch(removeNotif('remove'))
+            dispatch({
+                type: 'REMOVE_NOTIF',
+                data: 'remove'
+            })
         }, time*1000)
-    }
-}
-
-export const removeNotif = notification => {
-    return{
-        type: 'REMOVE_NOTIF',
-        notification
     }
 }
 
