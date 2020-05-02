@@ -44,6 +44,4 @@ export const newVote = anecdote => {
   }
 }
 
-
-
 export default reducer
