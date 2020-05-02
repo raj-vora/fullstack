@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setNotif } from './reducers/notificationReducer'
+import { initializeBlogs } from './reducers/blogReducer'
 import Blogs from './components/Blogs'
 import loginForm from './components/loginForm'
 import blogService from './services/blogService'
@@ -8,7 +9,7 @@ import loginService from './services/loginService'
 import Notification from './components/Notification'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
+  
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -16,18 +17,14 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    async function temp() {
-      const blogs = await blogService.getAll()
-      setBlogs(blogs.sort((a, b) => (a.likes < b.likes ? 1 : -1)))
-    }
-    temp()
+    dispatch(initializeBlogs())
     const loggedUserJSON = window.localStorage.getItem('loggedInUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       blogService.setToken(user.token)
     }
-  }, [])
+  }, [dispatch])
 
   const handleLogin = async(event) => {
     event.preventDefault()
@@ -56,7 +53,7 @@ const App = () => {
       {
         user === null
           ? loginForm(handleLogin, username, password, setUsername, setPassword)
-          : <Blogs blogs={blogs} setBlogs={setBlogs} user={user} />
+          : <Blogs user={user} />
       }
     </div>
   )
