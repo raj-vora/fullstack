@@ -19,7 +19,7 @@ const App = () => {
   }, [dispatch])
 
   return (
-    <div>
+    <div className="container">
       <Notification />
       {
         user === null

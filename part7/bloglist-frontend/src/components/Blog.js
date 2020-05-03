@@ -4,7 +4,6 @@ import { setNotif } from '../reducers/notificationReducer'
 import { newLike, removeBlog } from '../reducers/blogReducer'
 
 const Blog = ({ blog }) => {
-
     const dispatch = useDispatch()
 
     const likeBlog = () => {
@@ -19,6 +18,11 @@ const Blog = ({ blog }) => {
             dispatch(setNotif(`Deleted blog ${blog.title}`, 3))
         }
     }
+
+    if(!blog){
+        return null
+    }
+
     return(
         <div>
             <h2>{blog.title} by {blog.author}</h2>

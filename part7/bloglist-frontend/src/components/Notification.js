@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Alert } from 'react-bootstrap'
 
 
 const Notification = () => {
@@ -10,7 +11,11 @@ const Notification = () => {
       {
         notification === 'remove'
         ? null
-        : <div className='error' id="notif">{notification}</div>
+        : (notification && 
+            <Alert variant="success">
+              {notification}
+            </Alert>
+          )
       }
     </div>
   )

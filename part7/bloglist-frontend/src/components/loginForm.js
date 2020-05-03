@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { Form, Button } from 'react-bootstrap'
 import { login } from '../reducers/loginReducer'
-import { setNotif } from '../reducers/notificationReducer'
 
 const LoginForm = () => {
 
@@ -10,29 +10,30 @@ const LoginForm = () => {
   const handleLogin = (event) => {
     event.preventDefault()
     event.persist()
-    try{
-      dispatch(
-        login({
-          username: event.target.username.value,
-          password: event.target.password.value
-        })
-      )
-      event.target.username.value =''
-      event.target.password.value =''
-    }
-    catch(exception){
-      dispatch(setNotif('Wrong username or password', 5))
-    }
+    dispatch(
+      login({
+        username: event.target.username.value,
+        password: event.target.password.value
+      })
+    )
+    event.target.username.value =''
+    event.target.password.value =''
   }
 
   return(
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-          Username: <input id="username" name="username" /><br />
-          Password: <input id="password" name="password" type="password" /><br />
-        <button id="login-button" type='submit'>Login</button>
-      </form>
+      <Form onSubmit={handleLogin}>
+        <Form.Group>
+          <Form.Label>Username:</Form.Label>
+          <Form.Control type="text" name="username" />
+          <Form.Label>Password:</Form.Label>
+          <Form.Control type="password" name="password" /><br />
+          <Button variant="primary" type="submit">
+            Login
+          </Button>
+        </Form.Group>
+      </Form>
     </div>
   )
 }
