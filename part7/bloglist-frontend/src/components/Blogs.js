@@ -29,7 +29,7 @@ const Blogs = () => {
         <button type="submit" onClick={() => window.localStorage.removeItem('loggedInUser')} form="logout">Logout</button>
       </div>
 
-      <h2>Blogs</h2> 
+      <h2>Blogs App</h2> 
 
       <Togglable buttonLabel='Create New Blog' ref={blogFormRef}>
         <BlogForm />

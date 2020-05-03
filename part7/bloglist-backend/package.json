@@ -1,0 +1,42 @@
+{
+    "name": "bloglist",
+    "version": "0.0.1",
+    "description": "Full stack part 4 - Blog List",
+    "main": "index.js",
+    "directories": {
+        "example": "example"
+    },
+    "scripts": {
+        "start": "cross-env NODE_ENV=production node index.js",
+        "dev": "cross-env NODE_ENV=development nodemon index.js",
+        "watch": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/raj-vora/bloglist.git"
+    },
+    "author": "Raj Vora",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/raj-vora/bloglist/issues"
+    },
+    "homepage": "https://github.com/raj-vora/bloglist#readme",
+    "dependencies": {
+        "bcrypt": "^4.0.1",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-async-errors": "^3.1.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.9.4",
+        "mongoose-unique-validator": "^2.0.3"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.2",
+        "lodash": "^4.17.15",
+        "nodemon": "^2.0.2"
+    },
+    "jest": {
+        "testEnvironment": "node"
+    }
+}
