@@ -16,7 +16,7 @@ import Users from './Users'
 const Blogs = () => {
   const blogFormRef = React.createRef()
   const blogs = useSelector(state => state.blog)
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.login)
   const padding = {
     paddingRight: 5
   }

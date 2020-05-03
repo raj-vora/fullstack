@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import Blogs from './components/Blogs'
 import LoginForm from './components/LoginForm'
 import Notification from './components/Notification'
-import { checkUser } from './reducers/userReducer'
+import { checkUser } from './reducers/loginReducer'
 
 const App = () => {
   
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.login)
 
   useEffect(() => {
     dispatch(checkUser())
