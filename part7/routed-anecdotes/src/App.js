@@ -4,7 +4,6 @@ import {
   Route, 
   Link,
   useHistory,
-  useParams,
   useRouteMatch 
 } from 'react-router-dom'
 import { useField } from './hooks'
