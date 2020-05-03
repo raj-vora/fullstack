@@ -1,10 +1,9 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { setNotif } from '../reducers/notificationReducer'
 import { newLike, removeBlog } from '../reducers/blogReducer'
 
 const Blog = ({ blog }) => {
-    const [visible, setVisible] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -20,24 +19,15 @@ const Blog = ({ blog }) => {
             dispatch(setNotif(`Deleted blog ${blog.title}`, 3))
         }
     }
-
-    const enlarge = {display: visible ? '' : 'none'}
-    const toggleView = () => {
-        setVisible(!visible)
-    }
-    
-    const buttonLabel = visible ? 'hide' : 'view'
     return(
-        <div className='blog'>
-            {blog.title} by {blog.author}
-            <button onClick={toggleView}>{buttonLabel}</button> 
-            <div style={enlarge} className="hidden">
-                {blog.url}<br />
-                likes {blog.likes} 
-                <button onClick={likeBlog}>like</button><br />
-                {blog.user.name}<br />
-                <button onClick={deleteBlog}>remove</button>
-            </div>
+        <div>
+            <h2>{blog.title} by {blog.author}</h2>
+
+            <a href={blog.url}>{blog.url}</a><br />
+            {blog.likes} likes  
+            <button onClick={likeBlog}>like</button><br />
+            added by {blog.user.name}<br />
+            <button onClick={deleteBlog}>remove</button>
         </div>
     )
 }

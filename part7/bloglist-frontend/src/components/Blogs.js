@@ -1,12 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { 
-  Switch, 
-  Route, 
-  Link,
-  useHistory,
-  useRouteMatch 
-} from 'react-router-dom'
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom'
 import BlogForm from './BlogForm'
 import Togglable from './Togglable'
 import Blog from './Blog'
@@ -21,6 +15,9 @@ const Blogs = () => {
   const padding = {
     paddingRight: 5
   }
+
+  const match = useRouteMatch('/blogs/:id')
+  const blog = match ? blogs.find(blog => blog.id === match.params.id) : null
 
   return(
     <div>
@@ -41,12 +38,19 @@ const Blogs = () => {
         <Route path="/users/:id">
           <User />
         </Route>
+        <Route path="/blogs/:id">
+          <Blog blog={blog} />
+        </Route>
         <Route path="/users">
           <Users/>
         </Route>
         <Route path="/">
           {blogs.map(blog => 
-            <Blog blog={blog} key={blog.id} /> 
+            <div className="blog" key={blog.id}>
+              <Link to={`/blogs/${blog.id}`}>
+                {blog.title} by {blog.author}
+              </Link>
+            </div>
           )}
         </Route>
       </Switch>

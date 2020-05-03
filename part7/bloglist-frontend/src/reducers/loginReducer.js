@@ -27,12 +27,14 @@ export const login = userDetails => {
 export const checkUser = () => {
     return async dispatch => {
         const loggedUserJSON = window.localStorage.getItem('loggedInUser')
-        const user = JSON.parse(loggedUserJSON)
-        blogService.setToken(user.token)
-        dispatch({
-            type:'CHECK',
-            data: user
-        })
+        if(loggedUserJSON){
+            const user = JSON.parse(loggedUserJSON)
+            blogService.setToken(user.token)
+            dispatch({
+                type:'CHECK',
+                data: user
+            })
+        }
     }
 }
 
