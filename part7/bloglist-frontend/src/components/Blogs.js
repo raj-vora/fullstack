@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { initializeBlogs } from '../reducers/blogReducer'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import { 
   Switch, 
   Route, 
@@ -12,20 +11,16 @@ import BlogForm from './BlogForm'
 import Togglable from './Togglable'
 import Blog from './Blog'
 import Users from './Users'
+import User from './User'
 
 const Blogs = () => {
   const blogFormRef = React.createRef()
   const blogs = useSelector(state => state.blog)
   const user = useSelector(state => state.login)
+
   const padding = {
     paddingRight: 5
   }
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(initializeBlogs())
-  }, [dispatch])
 
   return(
     <div>
@@ -43,6 +38,9 @@ const Blogs = () => {
         <BlogForm />
       </Togglable>
       <Switch>
+        <Route path="/users/:id">
+          <User />
+        </Route>
         <Route path="/users">
           <Users/>
         </Route>

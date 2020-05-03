@@ -4,6 +4,8 @@ import Blogs from './components/Blogs'
 import LoginForm from './components/LoginForm'
 import Notification from './components/Notification'
 import { checkUser } from './reducers/loginReducer'
+import { initializeBlogs } from './reducers/blogReducer'
+import { initUsers } from './reducers/usersReducer'
 
 const App = () => {
   
@@ -12,6 +14,8 @@ const App = () => {
 
   useEffect(() => {
     dispatch(checkUser())
+    dispatch(initializeBlogs())
+    dispatch(initUsers())
   }, [dispatch])
 
   return (
