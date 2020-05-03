@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { setNotif } from '../reducers/notificationReducer'
-import { newLike, removeBlog } from '../reducers/blogReducer'
+import { newLike, removeBlog, newComment } from '../reducers/blogReducer'
 
 const Blog = ({ blog }) => {
     const dispatch = useDispatch()
@@ -19,6 +19,13 @@ const Blog = ({ blog }) => {
         }
     }
 
+    const commentBlog = (event) => {
+        event.preventDefault()
+        event.persist()
+        dispatch(newComment(blog, event.target.comment.value))
+        event.target.comment.value = ''
+    }
+
     if(!blog){
         return null
     }
@@ -31,7 +38,18 @@ const Blog = ({ blog }) => {
             {blog.likes} likes  
             <button onClick={likeBlog}>like</button><br />
             added by {blog.user.name}<br />
-            <button onClick={deleteBlog}>remove</button>
+            <button onClick={deleteBlog}>remove</button><br /><br />
+            <h4>Comments</h4><br />
+            <form onSubmit={commentBlog}>
+                <input name="comment" />
+                <button type="submit">Add comment</button>
+            </form>
+            <br />
+            <ul>
+                {blog.comments.map(comment =>
+                    <li key={comment}>{comment}</li>
+                )}
+            </ul>
         </div>
     )
 }
