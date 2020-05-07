@@ -67,7 +67,6 @@ const resolvers = {
                 await author.save()
                 console.log(author._id)
             }
-            
             const book = new Book({ ...args, author : author._id })
             try {
                 await book.save()
@@ -78,31 +77,22 @@ const resolvers = {
             }
             return book
         },
-        editAuthor: (root, args) => {
-            const author = authors.find(author => author.name === args.name)
-            if(!author){
-                return null
+        editAuthor: async (root, args) => {
+            const author = await Author.findOne({ name: args.name })
+            author.born = args.setBornTo
+            try {
+                await author.save()
+            } catch (error) {
+                throw new UserInputError(error.message, {
+                    invalidArgs: args
+                })
             }
-            const updatedAuthor = { ...author, born: args.setBornTo }
-            authors = authors.map(author => author.name === args.name ? updatedAuthor : author)
-            return updatedAuthor
         }
     },
     Query: {
         bookCount: () => Book.collection.countDocuments(),
         authorCount: () => Author.collection.countDocuments(),
         allBooks: (root, args) => {
-            /*if(!(args.author || args.genre)) {
-                return books
-            }
-            if(args.author){
-                let booksFilter = books.filter(book => book.author === args.author)
-                if(args.genre){
-                    return booksFilter.filter(book => book.genres.includes(args.genre))
-                }
-                return booksFilter
-            }
-            return books.filter(book => book.genres.includes(args.genre))*/
             return Book.find({}).populate('author')
         },
         allAuthors: () => Author.find({})
