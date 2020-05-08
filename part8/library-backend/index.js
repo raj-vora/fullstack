@@ -75,7 +75,7 @@ const typeDefs = gql`
 
 const resolvers = {
     Author: {
-        bookCount: (root) => books.filter(book => book.author === root.name ).length
+        bookCount: (root) => Book.find({ author: root._id }).countDocuments()
     },
     Mutation: {
         addBook: async (root, args, { currentUser }) => {

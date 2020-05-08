@@ -5,7 +5,8 @@ query {
     allAuthors {
         name
         id
-        born bookCount
+        born 
+        bookCount
     }
 }
 `
@@ -15,7 +16,11 @@ query {
     allBooks {
         title
         published
-        author
+        author{
+            name
+            born
+            id
+        }
         id
     }
 }
