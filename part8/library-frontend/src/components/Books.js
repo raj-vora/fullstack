@@ -1,4 +1,4 @@
-import React, { useEffect ,useState} from 'react'
+import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { ALL_BOOKS } from '../queries'
 
@@ -6,13 +6,10 @@ const Books = (props) => {
   const result = useQuery(ALL_BOOKS)
   const [genres, setGenres] = useState([])
   const [filter, setFilter] = useState('')
-  let books = []
   if(result.loading){
-    return (
-      <div>Still Loading...</div>
-    )
+    return null
   }
-  books = result.data.allBooks
+  const books = result.data.allBooks
   const temp = () => {
     if( books ) {
       books.forEach( book => {

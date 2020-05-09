@@ -8,6 +8,16 @@ mutation login($username: String!, $password: String!) {
 }
 `
 
+export const USER = gql`
+query {
+    me{
+      username
+      id
+      favoriteGenre
+    }
+}
+`
+
 export const ALL_AUTHORS = gql`
 query {
     allAuthors {
