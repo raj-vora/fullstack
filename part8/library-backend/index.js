@@ -71,9 +71,6 @@ const typeDefs = gql`
 `
 
 const resolvers = {
-    Author: {
-        bookCount: (root) => Book.find({ author: root._id }).countDocuments()
-    },
     Mutation: {
         addBook: async (root, args, { currentUser }) => {
             if(!currentUser) {
@@ -137,7 +134,17 @@ const resolvers = {
         allBooks: (root, args) => {
             return Book.find({}).populate('author')
         },
-        allAuthors: () => Author.find({}),
+        allAuthors: async () => {
+            const authors = await Author.find({})
+			return authors.map( async author => {
+				return {
+					name: author.name,
+					born: author.born,
+					id: author._id,
+					bookCount: await Book.find({ author: author._id }).countDocuments()
+				}
+			})
+        },
         me: (root, args, context) => {
             return context.currentUser
         }
