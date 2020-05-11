@@ -105,7 +105,12 @@ const resolvers = {
                     invalidArgs: args
                 })
             }
-            return author
+            return {
+                name: author.name,
+                born: author.born,
+                id: author._id,
+                bookCount: await Book.find({ author: author._id }).countDocuments()
+            }
         },
         createUser: (root, args) => {
             const user = new User({ ...args })

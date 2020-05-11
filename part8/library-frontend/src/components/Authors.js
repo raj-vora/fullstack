@@ -59,7 +59,6 @@ const BirthYear = ({ authors }) => {
     bornYear({ variables: {name, setBornTo: parseInt(year)} })
     setName('')
     setYear('')
-    
   }
 
   authors.forEach(author => {

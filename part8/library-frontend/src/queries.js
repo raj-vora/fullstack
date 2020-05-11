@@ -10,16 +10,15 @@ const BOOK_DETAILS = gql`
             born
             id
         }
-        id
     }
 `
 
 const AUTHOR_DETAILS = gql`
     fragment AuthorDetails on Author {
         name
-        id
         born 
         bookCount
+        id
     }
 `
 
@@ -85,4 +84,14 @@ mutation setBirthYear($name: String!, $setBornTo: Int!) {
     }
 }
 ${AUTHOR_DETAILS}
+`
+
+export const BOOK_ADDED = gql`
+subscription {
+  bookAdded {
+    title
+    published
+    genres
+  }
+}
 `
