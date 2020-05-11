@@ -5,20 +5,30 @@ import Books from './components/Books'
 import NewBook from './components/NewBook'
 import LoginForm from './components/LoginForm'
 import Recommendation from './components/Recommendation'
-import { BOOK_ADDED } from './queries'
+import { BOOK_ADDED, ALL_BOOKS } from './queries'
 
 const App = () => {
-  const [errorMessage, setErrorMessage] = useState(null)
   const [page, setPage] = useState('authors')
   const [token, setToken] = useState(null)
   const client = useApolloClient()
 
+  const updateCacheWith = (addedBook) => {
+    const includedIn = (set, object) => set.map(book => book.id).includes(object.id)
+
+    const dataInStore = client.readQuery({ query: ALL_BOOKS })
+    if(!includedIn(dataInStore.allBooks, addedBook)) {
+      client.writeQuery({
+        query: ALL_BOOKS,
+        data: {allBooks: dataInStore.allBooks.concat(addedBook)}
+      })
+    }
+  }
+
   useSubscription(BOOK_ADDED, {
     onSubscriptionData: ({ subscriptionData }) => {
       const addedBook = subscriptionData.data.bookAdded
-      console.log(addedBook)
-      notify(`${addedBook.title} added`)
       window.alert(`${addedBook.title} added`)
+      updateCacheWith(addedBook)
     }
   })
 
@@ -31,16 +41,8 @@ const App = () => {
     client.resetStore()
   }
 
-  const notify = (message) => {
-    setErrorMessage(message)
-    setTimeout(() => {
-      setErrorMessage(null)
-    }, 2000)
-  }
-
   return (
     <div>
-      <Notify errorMessage={errorMessage} />
       <div>
         <button onClick={() => setPage('authors')}>authors</button>
         <button onClick={() => setPage('books')}>books</button>
@@ -56,23 +58,11 @@ const App = () => {
       <div>
         <Authors show={page === 'authors'} />
         <Books show={page === 'books'} />
-        <NewBook show={page === 'add'} />
-        <LoginForm setToken={setToken} show={page === 'login'} setPage={setPage} setErrorMessage={notify} />
+        <NewBook show={page === 'add'} updateCacheWith={updateCacheWith} />
+        <LoginForm setToken={setToken} show={page === 'login'} setPage={setPage} />
         <Recommendation show={page === 'recommend'} />
       </div>
       
-    </div>
-  )
-}
-
-const Notify = ({ errorMessage }) => {
-  if(!errorMessage){
-    return null
-  }
-
-  return(
-    <div style={{color: 'red'}}>
-      {errorMessage}
     </div>
   )
 }
