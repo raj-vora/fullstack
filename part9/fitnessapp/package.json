@@ -1,0 +1,16 @@
+{
+  "name": "fitnessapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "ts-node": "ts-node",
+    "calculateBmi": "ts-node bmiCalculator.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3"
+  }
+}
