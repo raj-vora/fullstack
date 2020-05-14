@@ -16,7 +16,6 @@ const addPatient = ( patient: NewPatient ): Patient => {
     let newId = '';
     for(let i=0; i<4; i++){
         const temp = Math.round((Math.random()*100)%62);
-        console.log(temp);
         newId = newId+string[temp];
     }
     const NewPatient = {
