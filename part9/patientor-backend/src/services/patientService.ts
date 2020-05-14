@@ -1,5 +1,5 @@
 import patients from '../../data/patients';
-import { Patient, PatientWithoutSsn } from '../types';
+import { Patient, PatientWithoutSsn, NewPatient } from '../types';
 
 const getPatients = (): Patient[] => {
     return patients;
@@ -11,7 +11,24 @@ const getPatientsWithoutSsn = (): PatientWithoutSsn[] => {
     }));
 };
 
+const addPatient = ( patient: NewPatient ): Patient => {
+    const string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let newId = '';
+    for(let i=0; i<4; i++){
+        const temp = Math.round((Math.random()*100)%62);
+        console.log(temp);
+        newId = newId+string[temp];
+    }
+    const NewPatient = {
+        id: `d277${newId}-f723-11e9-8f0b-362b9e155667`,
+        ...patient
+    };
+    patients.push(NewPatient);
+    return NewPatient;
+};
+
 export default {
+    addPatient,
     getPatients,
     getPatientsWithoutSsn
 };
