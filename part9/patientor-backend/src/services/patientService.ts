@@ -11,6 +11,10 @@ const getPatientsWithoutSsn = (): PatientWithoutSsn[] => {
     }));
 };
 
+const getPatient = (id: string): Patient |undefined => {
+    return patients.find(patient => patient.id===id);
+}
+
 const addPatient = ( patient: NewPatient ): Patient => {
     const string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let newId = '';
@@ -28,6 +32,7 @@ const addPatient = ( patient: NewPatient ): Patient => {
 
 export default {
     addPatient,
+    getPatient,
     getPatients,
     getPatientsWithoutSsn
 };
