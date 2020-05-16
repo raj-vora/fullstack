@@ -9,30 +9,26 @@ import { useParams } from "react-router-dom";
 const PatientPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [{patient}, dispatch] = useStateValue();
-    const [singlepatient, setSinglePatient] = React.useState<Patient>();
 
     React.useEffect(() => {
         const getPatient= async() => {
             const { data: patientFromApi } = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
-            setSinglePatient(patientFromApi);
             dispatch(singlePatient(patientFromApi));
         };
         if(!(patient?.id === id)){
             getPatient();
-        } else {
-            setSinglePatient(patient);
         }
     },[dispatch, patient, id]);
 
-    if(!singlepatient){
+    if(!patient){
         return null;
     }
     
     return(
         <div>
-            <h1>{singlepatient.name} <Icon className={singlepatient.gender} /> </h1> 
-            <p>ssn: {singlepatient.ssn}</p>
-            <p>Occupation: {singlepatient.occupation}</p>
+            <h1>{patient.name} <Icon className={patient.gender} /> </h1> 
+            <p>ssn: {patient.ssn}</p>
+            <p>Occupation: {patient.occupation}</p>
         </div>
     );
 };
