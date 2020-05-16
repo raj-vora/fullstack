@@ -29,6 +29,18 @@ const PatientPage: React.FC = () => {
             <h1>{patient.name} <Icon className={patient.gender} /> </h1> 
             <p>ssn: {patient.ssn}</p>
             <p>Occupation: {patient.occupation}</p>
+            <h2>Entries</h2>
+            {patient.entries.map(entry => 
+                <div key={entry.id}>
+                    {entry.date}<br />
+                    {entry.description}
+                    <ul>
+                        {entry.diagnosisCodes?.map(code =>
+                            <li>{code}</li>
+                        )}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 };
