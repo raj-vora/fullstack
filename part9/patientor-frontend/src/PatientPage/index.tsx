@@ -3,7 +3,7 @@ import axios from "axios";
 import { Icon } from "semantic-ui-react";
 import { Patient } from "../types";
 import { apiBaseUrl } from "../constants";
-import { useStateValue } from "../state";
+import { useStateValue, singlePatient } from "../state";
 import { useParams } from "react-router-dom";
 
 const PatientPage: React.FC = () => {
@@ -15,7 +15,7 @@ const PatientPage: React.FC = () => {
         const getPatient= async() => {
             const { data: patientFromApi } = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
             setSinglePatient(patientFromApi);
-            dispatch({ type: "PATIENT", payload: patientFromApi });
+            dispatch(singlePatient(patientFromApi));
         };
         if(!(patient?.id === id)){
             getPatient();
