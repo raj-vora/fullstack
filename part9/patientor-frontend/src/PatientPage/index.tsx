@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 
 const PatientPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-    const [{patient}, dispatch] = useStateValue();
+    const [{patient, diagnoses}, dispatch] = useStateValue();
 
     React.useEffect(() => {
         const getPatient= async() => {
@@ -36,7 +36,7 @@ const PatientPage: React.FC = () => {
                     {entry.description}
                     <ul>
                         {entry.diagnosisCodes?.map(code =>
-                            <li>{code}</li>
+                            <li>{code} {diagnoses.find(d => d.code===code)?.name}</li>
                         )}
                     </ul>
                 </div>
