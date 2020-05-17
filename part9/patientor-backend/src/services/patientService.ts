@@ -1,5 +1,15 @@
 import patients from '../../data/patients';
-import { Patient, PatientWithoutSsn, NewPatient } from '../types';
+import { Patient, PatientWithoutSsn, NewPatient, Entry } from '../types';
+
+const generateId = (): string => {
+    const string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let newId = '';
+    for(let i=0; i<4; i++){
+        const temp = Math.round((Math.random()*100)%62);
+        newId = newId+string[temp];
+    }
+    return newId;
+}
 
 const getPatients = (): Patient[] => {
     return patients;
@@ -11,15 +21,15 @@ const getPatientsWithoutSsn = (): PatientWithoutSsn[] => {
     }));
 };
 
-const getPatient = (id: string): Patient | undefined => {
+const getPatient = (id: Patient['id']): Patient | undefined => {
     return patients.find(patient => patient.id===id);
 };
 
 const addPatient = ( patient: NewPatient ): Patient => {
     const string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let newId = '';
+    let newId = generateId();
     for(let i=0; i<4; i++){
-        const temp = Math.round((Math.random()*100)%62);
+        const temp = Math.round((Math.random()*100)%60);
         newId = newId+string[temp];
     }
     const NewPatient = {
@@ -30,9 +40,17 @@ const addPatient = ( patient: NewPatient ): Patient => {
     return NewPatient;
 };
 
+const updatePatient = (id: Patient['id'], entry: Entry): Patient | undefined => {
+    const patient = patients.find(patient => patient.id===id);
+    patient?.entries.push({...entry, id: generateId()});
+    console.log(patient);
+    return patient;
+};
+
 export default {
     addPatient,
     getPatient,
     getPatients,
-    getPatientsWithoutSsn
+    getPatientsWithoutSsn,
+    updatePatient
 };
