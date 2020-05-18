@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import { Icon, SemanticCOLORS, Button } from "semantic-ui-react";
 
-import { EntryFormValues } from '../AddEntryModal/AddEntryForm';
 import AddEntryModal from '../AddEntryModal';
 import { Patient, Entry } from "../types";
 import { apiBaseUrl } from "../constants";
@@ -103,7 +102,7 @@ const PatientPage: React.FC = () => {
             break;
     }
 
-    const submit = async (values: EntryFormValues) => {
+    const submit = async (values: unknown) => {
         try{
             const { data: updatedPatient } = await axios.post<Patient>(
                 `${apiBaseUrl}/patients/${patient.id}/entries`, 
