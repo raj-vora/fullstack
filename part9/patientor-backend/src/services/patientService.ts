@@ -25,7 +25,7 @@ const getPatient = (id: Patient['id']): Patient | undefined => {
     return patients.find(patient => patient.id===id);
 };
 
-const addPatient = ( patient: NewPatient ): Patient => {
+const addPatient = ( patient: NewPatient ): NewPatient => {
     const string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let newId = generateId();
     for(let i=0; i<4; i++){
@@ -34,6 +34,7 @@ const addPatient = ( patient: NewPatient ): Patient => {
     }
     const newPatient = {
         id: `d277${newId}-f723-11e9-8f0b-362b9e155667`,
+        entries: [],
         ...patient
     };
     patients.push(newPatient);
@@ -43,7 +44,6 @@ const addPatient = ( patient: NewPatient ): Patient => {
 const updatePatient = (id: Patient['id'], entry: Entry): Patient | undefined => {
     const patient = patients.find(patient => patient.id===id);
     patient?.entries.push({...entry, id: generateId()});
-    console.log(patient);
     return patient;
 };
 
