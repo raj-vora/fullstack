@@ -1,5 +1,5 @@
 import patients from '../../data/patients';
-import { Patient, PatientWithoutSsn, NewPatient, Entry } from '../types';
+import { Patient, PatientWithoutSsn, Entry, NewPatient } from '../types';
 
 const generateId = (): string => {
     const string = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -9,7 +9,7 @@ const generateId = (): string => {
         newId = newId+string[temp];
     }
     return newId;
-}
+};
 
 const getPatients = (): Patient[] => {
     return patients;
@@ -32,12 +32,12 @@ const addPatient = ( patient: NewPatient ): Patient => {
         const temp = Math.round((Math.random()*100)%60);
         newId = newId+string[temp];
     }
-    const NewPatient = {
+    const newPatient = {
         id: `d277${newId}-f723-11e9-8f0b-362b9e155667`,
         ...patient
     };
-    patients.push(NewPatient);
-    return NewPatient;
+    patients.push(newPatient);
+    return newPatient;
 };
 
 const updatePatient = (id: Patient['id'], entry: Entry): Patient | undefined => {

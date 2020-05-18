@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NewPatient, Gender, Entry } from "./types";
+import { NewPatient, Gender } from "./types";
 
 const isString = (text: any): text is string => typeof text === 'string' || text instanceof String;
 
@@ -32,13 +32,6 @@ const parseOccupation = (occupation: any): string => {
     return occupation;
 };
 
-const isType = (type: any): type is Entry["type"] =>  ["Hospital", "OccupationalHealthcare", "HealthCheck"].includes(type);
-
-const parseEntries = (entries: any): Entry[] => {
-    if(!entries || !isType(entries.type)) throw new Error('Incorrect or missing entry: ' + entries);
-    return entries;
-};
-
 const toNewPatient = (object: any): NewPatient => {
     return {
         name: parseName(object.name),
@@ -46,7 +39,6 @@ const toNewPatient = (object: any): NewPatient => {
         ssn: parseSsn(object.ssn),
         gender: parseGender(object.gender),
         occupation: parseOccupation(object.occupation),
-        entries: parseEntries(object.entries)
     };
 };
 
