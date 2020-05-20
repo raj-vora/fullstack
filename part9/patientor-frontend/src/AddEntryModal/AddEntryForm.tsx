@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Button } from "semantic-ui-react";
 import { Field, Formik, Form } from "formik";
 
-import { TextField, DiagnosisSelection, NumberField } from "./FormField";
+import { TextField, DiagnosisSelection, NumberField, DateField } from "./FormField";
 import { useStateValue } from "../state";
 import { Entry } from "../types";
 
@@ -41,13 +41,13 @@ const Occu = () => (
             label="Sick leave start"
             placeholder="YYYY-MM-DD"
             name="sickLeave.startDate"
-            component={TextField}
+            component={DateField}
         />
         <Field 
             label="Sick leave end"
             placeholder="YYYY-MM-DD"
             name="sickLeave.endDate"
-            component={TextField}
+            component={DateField}
         />
     </>
 );
@@ -55,7 +55,7 @@ const Occu = () => (
 const HealthCheck = () => (
     <>
         <Field
-            label="healthCheckRating"
+            label="Health Check Rating"
             name="healthCheckRating"
             component={NumberField}
             min={0}
@@ -69,10 +69,6 @@ const setInitialValues = (type: Entry['type']) => {
         case "Hospital":
             return{
                 type,
-                description: "",
-                date:"",
-                specialist: "",
-                diagnosisCodes: [""],
                 discharge: {
                     date: "",
                     criteria: ""
@@ -81,10 +77,6 @@ const setInitialValues = (type: Entry['type']) => {
         case "OccupationalHealthcare":
             return {
                 type,
-                description: "",
-                date:"",
-                specialist: "",
-                diagnosisCodes: [""],
                 employerName: "",
                 sickLeave: {
                     startDate: "",
@@ -93,20 +85,10 @@ const setInitialValues = (type: Entry['type']) => {
             };
         case "HealthCheck":
             return {
-                type,
-                description: "",
-                date:"",
-                specialist: "",
-                diagnosisCodes: [""],
                 healthCheckRating: 0
             };
         default:
-            return{
-                description: "",
-                date:"",
-                specialist: "",
-                diagnosisCodes: [""]
-            };
+            break;
     }
 };
 
@@ -114,7 +96,12 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel, type }) => {
     const [{ diagnoses }] = useStateValue();
     return(
         <Formik
-            initialValues = {setInitialValues(type)}
+            initialValues = {{ 
+                description: "",
+                date:"",
+                specialist: "",
+                diagnosisCodes: [""],
+                ...setInitialValues(type)}}
             onSubmit={onSubmit}
             validate={values => {
                 const requiredError = "Field is required";
@@ -122,8 +109,6 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel, type }) => {
                 if(!values.date) errors.date = requiredError;
                 if(!values.description) errors.description = requiredError;
                 if(!values.specialist) errors.specialist = requiredError;
-                if(!values.type) errors.type = requiredError;
-
                 return errors;
             }}
         >
@@ -136,7 +121,7 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel, type }) => {
                             label="Date"
                             placeholder="YYYY-MM-DD"
                             name="date"
-                            component={TextField}
+                            component={DateField}
                         />
                         <Field 
                             label="Description"
@@ -155,16 +140,9 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel, type }) => {
                             setFieldTouched={setFieldTouched}
                             diagnoses={Object.values(diagnoses)}
                         />
-                        {
-                            type==="Hospital"
-                            ? <Hosp />   
-                            : null
-                        }
-                        {
-                            type==="OccupationalHealthcare"
-                            ? <Occu />
-                            : <HealthCheck />
-                        }
+                        { type==="Hospital" ? <Hosp /> : null }
+                        { type==="OccupationalHealthcare" ? <Occu /> : null }
+                        { type==="HealthCheck"? <HealthCheck /> : null }
                         <Grid>
                             <Grid.Column floated="left" width={5}>
                                 <Button type="button" onClick={onCancel} color="red">

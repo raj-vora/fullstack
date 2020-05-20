@@ -21,10 +21,7 @@ export const TextField: React.FC<TextProps> = ({
       </div>
     </Form.Field>
 );
-  
-/*
-for exercises 9.24.-
-*/
+
 interface NumberProps extends FieldProps {
 label: string;
 errorMessage?: string;
@@ -32,11 +29,24 @@ min: number;
 max: number;
 }
 
+interface DateProps extends FieldProps {
+    label: string;
+}
+
+export const DateField: React.FC<DateProps> = ({ field, label }) => (
+    <Form.Field>
+        <label>{label}</label>
+        <Field {...field} type='date' />
+        <div style={{ color:'red' }}>
+        <ErrorMessage name={field.name} />
+        </div>
+    </Form.Field>    
+)
+
 export const NumberField: React.FC<NumberProps> = ({ field, label, min, max }) => (
 <Form.Field>
     <label>{label}</label>
     <Field {...field} type='number' min={min} max={max} />
-
     <div style={{ color:'red' }}>
     <ErrorMessage name={field.name} />
     </div>
