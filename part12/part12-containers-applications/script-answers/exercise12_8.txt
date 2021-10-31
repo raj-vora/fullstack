@@ -1,0 +1,179 @@
+Script started on 2021-10-31 22:07:56+05:30 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="143" LINES="36"]
+]0;rajvora@rajvora-ThinkPad-X13-Gen-1: /var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[01;32mrajvora@rajvora-ThinkPad-X13-Gen-1[00m:[01;34m/var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[00m$ sudo docker run -p 3000:3000 todo-backend[A]0;rajvora@rajvora-ThinkPad-X13-Gen-1: /var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[01;32mrajvora@rajvora-ThinkPad-X13-Gen-1[00m:[01;34m/var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[00m$ [C[C[C[C[C[C[C[C[C[C[C[Cbuild -t todo-backend . && docker run -p 3000:3000 todo-backend[A]0;rajvora@rajvora-ThinkPad-X13-Gen-1: /var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[01;32mrajvora@rajvora-ThinkPad-X13-Gen-1[00m:[01;34m/var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[00m$ [C[C[C[C[C[C[C[C[C[C[C[Crun -p 3000:3000 todo-backend[K[A]0;rajvora@rajvora-ThinkPad-X13-Gen-1: /var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[01;32mrajvora@rajvora-ThinkPad-X13-Gen-1[00m:[01;34m/var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[00m$ [K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo docker exec -it todo-ba ckend_mongo_1
+[sudo] password for rajvora: 
+"docker exec" requires at least 2 arguments.
+See 'docker exec --help'.
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Run a command in a running container
+]0;rajvora@rajvora-ThinkPad-X13-Gen-1: /var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[01;32mrajvora@rajvora-ThinkPad-X13-Gen-1[00m:[01;34m/var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[00m$ sudo docker exec -it todo-backend_mongo_1 bash
+]0;root@cfbba5752cb5: /root@cfbba5752cb5:/# mongo
+MongoDB shell version v5.0.3
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("f750d6e8-c178-4d70-a698-bff60d732406") }
+MongoDB server version: 5.0.3
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+We recommend you begin using "mongosh".
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+	https://docs.mongodb.com/
+Questions? Try the MongoDB Developer Community Forums
+	https://community.mongodb.com
+> show dbs[3G[Jshow dbs[11G
+> exit[3G[Jexit[7G
+bye
+]0;root@cfbba5752cb5: /root@cfbba5752cb5:/# mongo[1Pexitmongosh
+]0;mongosh mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000Current Mongosh Log ID:	617ec6a77b5e0678f82eed25
+Connecting to:		[1m[32mmongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000[0m
+Using MongoDB:		5.0.3
+[1m[33mUsing Mongosh[0m:		1.1.0
+
+For mongosh info see: [1mhttps://docs.mongodb.com/mongodb-shell/[0m
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the [1mdisableTelemetry()[0m command.
+
+[1G[0J [1G[1m[33mWarning: Found ~/.mongorc.js, but not ~/.mongoshrc.js. ~/.mongorc.js will not be loaded.
+  You may want to copy or rename ~/.mongorc.js to ~/.mongoshrc.js.
+[0m[1G[0Jtest> [7Gshow dbs
+Uncaught [1m[31mMongoServerError[0m: command listDatabases requires authentication
+[1G[0Jtest> [7Gexit
+]0;root@cfbba5752cb5: /root@cfbba5752cb5:/# mongosh -u root -p example
+]0;mongosh mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000Current Mongosh Log ID:	617ec6c042774c3b65924d31
+Connecting to:		[1m[32mmongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000[0m
+Using MongoDB:		5.0.3
+[1m[33mUsing Mongosh[0m:		1.1.0
+
+For mongosh info see: [1mhttps://docs.mongodb.com/mongodb-shell/[0m
+
+[1m[33m------[0m
+   [1m[33mThe server generated these startup warnings when booting:[0m
+   2021-10-31T15:51:40.024+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+[1m[33m------[0m
+
+[1G[0J [1G[1m[33mWarning: Found ~/.mongorc.js, but not ~/.mongoshrc.js. ~/.mongorc.js will not be loaded.
+  You may want to copy or rename ~/.mongorc.js to ~/.mongoshrc.js.
+[0m[1G[0Jtest> [7Gshpw [1G[0Jtest> shpw[11G[1G[0Jtest> shp[10G[1G[0Jtest> sh[9Gow dbs
+[1madmin[0m          102 kB
+[1mconfig[0m         111 kB
+[1mlocal[0m         73.7 kB
+[1mthe_database[0m  73.7 kB
+[1G[0Jtest> [7G-u root -p example[1G[0Jtest> -u root -p exampl[24G[1G[0Jtest> -u root -p examp[23G[1G[0Jtest> -u root -p exam[22G[1G[0Jtest> -u root -p exa[21G[1G[0Jtest> -u root -p ex[20G[1G[0Jtest> -u root -p e[19G[1G[0Jtest> -u root -p [18G[1G[0Jtest> -u root -p[17G[1G[0Jtest> -u root -[16G[1G[0Jtest> -u root [15G[1G[0Jtest> -u root[14G[1G[0Jtest> -u roo[13G[1G[0Jtest> -u ro[12G[1G[0Jtest> -u r[11G[1G[0Jtest> -u [10G[1G[0Jtest> -u[9G[1G[0Jtest> -[8G[1G[0Jtest> [7Guse the_database
+switched to db the_database
+[1G[0Jthe_database> [15Gshow collections
+[1mtodos[0m
+[1G[0Jthe_database> [15Gdb.todos.find({})
+[
+  {
+    _id: ObjectId("617ebb8abb1913b74997a5b5"),
+    text: [32m'Write code'[39m,
+    done: [33mtrue[39m
+  },
+  {
+    _id: ObjectId("617ebb8abb1913b74997a5b6"),
+    text: [32m'Learn about containers'[39m,
+    done: [33mfalse[39m
+  },
+  {
+    _id: ObjectId("617ec012e9424a33461720a1"),
+    text: [32m'Get Milk'[39m,
+    done: [33mfalse[39m,
+    __v: [33m0[39m
+  },
+  {
+    _id: ObjectId("617ec027e9424a33461720a3"),
+    text: [32m'Get away'[39m,
+    done: [33mtrue[39m,
+    __v: [33m0[39m
+  }
+]
+[1G[0Jthe_database> [15Gdb.collect[1G[0Jthe_database> db.collec[24G[1G[0Jthe_database> db.colle[23G[1G[0Jthe_database> db.coll[22G[1G[0Jthe_database> db.col[21G[1G[0Jthe_database> db.co[20G[1G[0Jthe_database> db.c[19G[1G[0Jthe_database> db.[18Gtodo.insertOne({text[33mtext[39m: [32m"[39m[1G[0Jthe_database> db.todo.insertOne({[33mtext[39m: [40G[32m"[39m[32mI[39m[32mn[39m[32mc[39m[32mr[39m[32me[39m[32ma[39m[32ms[39m[32me[39m [32mt[39m[32mh[39m[32me[39m [32mn[39m[32mu[39m[32mm[39m[32mb[39m[32me[39m[32mr[39m [32mo[39m[32mf[39m [32mt[39m[32mo[39m[32mo[39m[32ml[39m[32ms[39m [32mi[39m[32mn[39m [32mm[39m[32my[39m [32mt[39m[32mo[39m[32mo[39m[32ml[39m[32mb[39m[32me[39m[32ml[39m[32mt[39m[32m"[39m, d[36mdo[39mdone[33mdone[39m: fals[33mfalse[39m})
+{
+  acknowledged: [33mtrue[39m,
+  insertedId: ObjectId("617ec7464d96d37c08f47c85")
+}
+[1G[0Jthe_database> [15G[1G[0Jthe_database> db.todo.insertOne({[33mtext[39m: [32m"Increase the number of tools in my toolbelt"[39m, [33mdone[39m: [33mfalse[39m})[100G[1G[0Jthe_database> db.todos.find({})[32G
+[
+  {
+    _id: ObjectId("617ebb8abb1913b74997a5b5"),
+    text: [32m'Write code'[39m,
+    done: [33mtrue[39m
+  },
+  {
+    _id: ObjectId("617ebb8abb1913b74997a5b6"),
+    text: [32m'Learn about containers'[39m,
+    done: [33mfalse[39m
+  },
+  {
+    _id: ObjectId("617ec012e9424a33461720a1"),
+    text: [32m'Get Milk'[39m,
+    done: [33mfalse[39m,
+    __v: [33m0[39m
+  },
+  {
+    _id: ObjectId("617ec027e9424a33461720a3"),
+    text: [32m'Get away'[39m,
+    done: [33mtrue[39m,
+    __v: [33m0[39m
+  }
+]
+[1G[0Jthe_database> [15G[1G[0Jthe_database> db.todos.find({})[32G[1G[0Jthe_database> db.todo.insertOne({[33mtext[39m: [32m"Increase the number of tools in my toolbelt"[39m, [33mdone[39m: [33mfalse[39m})[100G[85D[1C[1C[1C[1C[1C[1C[1G[0Jthe_database> db.todos.find({})[32G[1D[1G[0Jthe_database> db.todos.find[44m([49m{})[31G[1D[1G[0Jthe_database> db.todos.find([44m{[49m})[30G[1D[1G[0Jthe_database> db.todos.find({[44m}[49m)[29G[1D[1G[0Jthe_database> db.todos.find({}[44m)[49m[28G[1D[1G[0Jthe_database> db.todos.find({})[27G[1D[1D[1D[1D[1G[0Jthe_database> db.todo.find({})[22G[9C
+[
+  {
+    _id: ObjectId("617ec7464d96d37c08f47c85"),
+    text: [32m'Increase the number of tools in my toolbelt'[39m,
+    done: [33mfalse[39m
+  }
+]
+[1G[0Jthe_database> [15G[1G[0Jthe_database> db.todo.find({})[31G[1G[0Jthe_database> db.todos.find({})[32G[1D[1G[0Jthe_database> db.todos.find[44m([49m{})[31G[1D[1G[0Jthe_database> db.todos.find([44m{[49m})[30G[1G[0Jthe_database> db.todos.find({[30G[1G[0Jthe_database> db.todos.find({})[32G[1G[0Jthe_database> db.todos.find({[30G[1G[0Jthe_database> db.todos.find({})[32G[1G[0Jthe_database> db.todos.find({}[31G[1G[0Jthe_database> db.todos.find({[30G[1G[0Jthe_database> db.todos.find([29G[1G[0Jthe_database> db.todos.find[28G[1G[0Jthe_database> db.todos.fin[27G[1G[0Jthe_database> db.todos.fi[26G[1G[0Jthe_database> db.todos.f[25G[1G[0Jthe_database> db.todos.[24G[1G[0Jthe_database> db.todos[23G[1G[0Jthe_database> db.todo[22G[1G[0Jthe_database> db.tod[21G[1G[0Jthe_database> db.to[20G[1G[0Jthe_database> db.t[19G[1G[0Jthe_database> db.[18G[1G[0Jthe_database> db[17G[1G[0Jthe_database> d[16G[1G[0Jthe_database> [15G[1G[0Jthe_database> show collections[31G[1G[0Jthe_database> use the_database[31G[1G[0Jthe_database> show dbs[23G[1G[0Jthe_database> use the_database[31G[1G[0Jthe_database> show collections[31G[1G[0Jthe_database> db.todos.find({})[32G[1G[0Jthe_database> db.todo.insertOne({[33mtext[39m: [32m"Increase the number of tools in my toolbelt"[39m, [33mdone[39m: [33mfalse[39m})[100G[85D[1C[1C[1C[1C[1C[1C[1C[1G[0Jthe_database> db.todos.insertOne({[33mtext[39m: [32m"Increase the number of tools in my toolbelt"[39m, [33mdone[39m: [33mfalse[39m})[23G[78C
+{
+  acknowledged: [33mtrue[39m,
+  insertedId: ObjectId("617ec76c4d96d37c08f47c86")
+}
+[1G[0Jthe_database> [15G[1G[0Jthe_database> db.todos.insertOne({[33mtext[39m: [32m"Increase the number of tools in my toolbelt"[39m, [33mdone[39m: [33mfalse[39m})[101G[1G[0Jthe_database> db.todo.find({})[31G[1G[0Jthe_database> db.todos.find({})[32G
+[
+  {
+    _id: ObjectId("617ebb8abb1913b74997a5b5"),
+    text: [32m'Write code'[39m,
+    done: [33mtrue[39m
+  },
+  {
+    _id: ObjectId("617ebb8abb1913b74997a5b6"),
+    text: [32m'Learn about containers'[39m,
+    done: [33mfalse[39m
+  },
+  {
+    _id: ObjectId("617ec012e9424a33461720a1"),
+    text: [32m'Get Milk'[39m,
+    done: [33mfalse[39m,
+    __v: [33m0[39m
+  },
+  {
+    _id: ObjectId("617ec027e9424a33461720a3"),
+    text: [32m'Get away'[39m,
+    done: [33mtrue[39m,
+    __v: [33m0[39m
+  },
+  {
+    _id: ObjectId("617ec76c4d96d37c08f47c86"),
+    text: [32m'Increase the number of tools in my toolbelt'[39m,
+    done: [33mfalse[39m
+  }
+]
+[1G[0Jthe_database> [15Gexit
+]0;root@cfbba5752cb5: /root@cfbba5752cb5:/# [Kexit
+exit
+]0;rajvora@rajvora-ThinkPad-X13-Gen-1: /var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[01;32mrajvora@rajvora-ThinkPad-X13-Gen-1[00m:[01;34m/var/www/fullstack/part12/part12-containers-applications/todo-app/todo-backend[00m$ exit
+exit
+
+Script done on 2021-10-31 22:12:40+05:30 [COMMAND_EXIT_CODE="0"]
