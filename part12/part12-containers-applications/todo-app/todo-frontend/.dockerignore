@@ -3,4 +3,3 @@
 node_modules
 Dockerfile
 mongo_data
-package-lock.json
