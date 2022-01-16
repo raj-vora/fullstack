@@ -5,7 +5,7 @@ import Text from './Text';
 const AppBarTab = ({tabText}) => {
   return (
     <Pressable>
-        <Text color="appBarText">{tabText}</Text>
+        <Text color="secondary">{tabText}</Text>
     </Pressable>
   );
 };

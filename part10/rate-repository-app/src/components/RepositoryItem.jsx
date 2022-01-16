@@ -1,15 +1,22 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import { StyleSheet, View} from 'react-native';
+import theme from '../theme';
+import Details from './Details';
+import Statistics from './Statistics';
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingHorizontal: 10,
+    backgroundColor: theme.colors.secondary
+  }
+});
 
 const RepositoryItem = ({ repository }) => (
-    <View>
-    <Text>Full name: {repository.fullName}</Text>
-    <Text>Description: {repository.description}</Text>
-    <Text>Language: {repository.language}</Text>
-    <Text>Stars: {repository.stargazersCount}</Text>
-    <Text>Forks: {repository.forksCount}</Text>
-    <Text>Reviews: {repository.reviewCount}</Text>
-    <Text>Rating: {repository.ratingAverage}</Text>
+    <View style={styles.container}>
+      <Details repository={repository} />
+      <Statistics repository={repository} />
   </View>
 );
 
