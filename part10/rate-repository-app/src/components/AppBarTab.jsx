@@ -1,12 +1,20 @@
 import React from 'react';
-import { Pressable } from 'react-native';
 import Text from './Text';
+import Constants from 'expo-constants';
+import { Pressable, StyleSheet, View} from 'react-native';
+
+const styles = StyleSheet.create({
+  tab: {
+    paddingVertical: Constants.statusBarHeight,
+    paddingHorizontal: 50
+  }
+})
 
 const AppBarTab = ({tabText}) => {
   return (
-    <Pressable>
-        <Text color="secondary">{tabText}</Text>
-    </Pressable>
+    <View style={styles.tab}>
+      <Text color="secondary">{tabText}</Text>
+    </View>
   );
 };
 
