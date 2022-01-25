@@ -6,7 +6,7 @@ import { Pressable, StyleSheet, View} from 'react-native';
 const styles = StyleSheet.create({
   tab: {
     paddingVertical: Constants.statusBarHeight,
-    paddingHorizontal: 50
+    paddingHorizontal: 20
   }
 })
 
