@@ -1,6 +1,5 @@
 import React from 'react';
 import { TextInput as NativeTextInput, StyleSheet } from 'react-native';
-import { borderColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 import theme from '../theme';
 
 const styles = StyleSheet.create({

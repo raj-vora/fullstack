@@ -1,14 +1,14 @@
 import React from 'react';
 import Text from './Text';
 import Constants from 'expo-constants';
-import { Pressable, StyleSheet, View} from 'react-native';
+import { StyleSheet, View} from 'react-native';
 
 const styles = StyleSheet.create({
   tab: {
     paddingVertical: Constants.statusBarHeight,
     paddingHorizontal: 20
   }
-})
+});
 
 const AppBarTab = ({tabText}) => {
   return (
